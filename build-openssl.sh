@@ -69,7 +69,8 @@ DEFAULTVERSION="1.1.1d"
 # Available set of targets to build. This is distinct from the default set, below, in that this
 # reflects everything that's available to build, whereas you may want to choose a different set
 # of defaults.
-TARGETS_AVAILABLE="ios-sim-cross-x86_64 ios-sim-cross-arm64 ios-cross-armv7 ios64-cross-arm64 mac-catalyst-x86_64 mac-catalyst-arm64 tvos-sim-cross-x86_64 tvos64-cross-arm64 macos64-x86_64 macos64-arm64 watchos-cross-armv7k watchos-cross-arm64_32 watchos-sim-cross-i386"
+#mac-catalyst-arm64
+TARGETS_AVAILABLE="ios-sim-cross-x86_64 ios-sim-cross-arm64 ios-cross-armv7 ios64-cross-arm64 mac-catalyst-x86_64"
 
 # Default set of architectures (OpenSSL <= 1.0.2) or targets (OpenSSL >= 1.1.1) to build
 TARGETS_DEFAULT="$TARGETS_AVAILABLE"
@@ -447,7 +448,11 @@ if [ ${#OPENSSLCONF_ALL[@]} -gt 1 ]; then
         DEFINE_CONDITION="TARGET_OS_SIMULATOR && TARGET_CPU_X86 || TARGET_OS_EMBEDDED"
       ;;
       *_catalyst_x86_64.h)
-        DEFINE_CONDITION="(TARGET_OS_MACCATALYST || (TARGET_OS_IOS && TARGET_OS_SIMULATOR)) && TARGET_CPU_X86_64"      ;;
+        DEFINE_CONDITION="(TARGET_OS_MACCATALYST || (TARGET_OS_IOS && TARGET_OS_SIMULATOR)) && TARGET_CPU_X86_64"      
+      ;;
+      *_catalyst_arm64.h)
+        DEFINE_CONDITION="(TARGET_OS_MACCATALYST || (TARGET_OS_IOS && TARGET_OS_SIMULATOR)) && TARGET_CPU_ARM64"      
+      ;;
       *)
         # Don't run into unexpected cases by setting the default condition to false
         DEFINE_CONDITION="0"
